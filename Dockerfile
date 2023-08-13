@@ -15,6 +15,7 @@ RUN apt update \
     maven \
     nano \
     openjdk-11-jdk  \
+    openjdk-11-jdk-headless \
     openssh-client  \
     patch  \
     python3  \
