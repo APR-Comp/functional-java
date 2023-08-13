@@ -1,0 +1,26 @@
+[
+  {
+        "id": 1,
+        "subject": "jfree-jfreechart",
+        "bug_id": "bug-1",
+        "source_directory": "src/main/java",
+        "class_directory": "target/classes",
+        "test_directory": "src/test/java",
+        "test_class_directory": "target/test-classes",
+        "java_version": 11,
+        "build_system": "maven",
+        "dependencies": [
+            "src/target/all-dependencies.jar"
+        ],
+        "failing_test": [
+            "org.jfree.data.RangeTest"
+        ],
+        "passing_test": [],
+        "count_neg": 1,
+        "count_pos": 0,
+        "test_timeout": 10,
+        "build_script": "build_subject",
+        "test_script": "run_test",
+        "bug_type": "Test Failure"
+    }
+]
