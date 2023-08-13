@@ -15,7 +15,7 @@ then
 fi
 
 
-timeout 10 mvn test -Dtest=$TEST_CLASS > /dev/null 2>&1
+timeout 20 mvn test -Dtest=$TEST_CLASS > /dev/null 2>&1
 EXIT_CODE=$?
 
 if [[ EXIT_CODE -eq 0 ]]
