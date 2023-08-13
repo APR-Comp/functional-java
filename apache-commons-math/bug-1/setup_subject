@@ -7,7 +7,7 @@ dir_name=/experiment/$benchmark_name/$project_name/$bug_id
 current_dir=$PWD
 mkdir -p $dir_name
 cd $dir_name
-mkdir dev-patch
+
 
 project_url="https://github.com/apache/commons-math.git"
 bug_commit_id=commons-math-4.0-beta1-RC1
