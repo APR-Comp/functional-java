@@ -22,5 +22,29 @@
         "build_script": "build_subject",
         "test_script": "run_test",
         "bug_type": "Test Failure"
+    },
+      {
+        "id": 2,
+        "subject": "apache-commons-math",
+        "bug_id": "bug-1",
+        "source_directory": "commons-math-legacy-core/src/main/java",
+        "class_directory": "commons-math-legacy-core/target/classes",
+        "test_directory": "commons-math-legacy-core/src/test/java",
+        "test_class_directory": "commons-math-legacy-core/target/test-classes",
+        "java_version": 11,
+        "build_system": "maven",
+        "dependencies": [
+            "src/target/all-dependencies.jar"
+        ],
+        "failing_test": [
+            "org.apache.commons.math4.legacy.core.MathArraysTest"
+        ],
+        "passing_test": ["org.apache.commons.math4.legacy.core.IntegerSequenceTest","org.apache.commons.math4.legacy.core.jdkmath.AccurateMathTest","org.apache.commons.math4.legacy.core.jdkmath.AccurateMathStrictComparisonTest","org.apache.commons.math4.legacy.core.PairTest","org.apache.commons.math4.legacy.core.dfp.DfpTest","org.apache.commons.math4.legacy.core.dfp.DfpDecTest","org.apache.commons.math4.legacy.core.dfp.DfpMathTest"],
+        "count_neg": 1,
+        "count_pos": 7,
+        "test_timeout": 10,
+        "build_script": "build_subject",
+        "test_script": "run_test",
+        "bug_type": "Test Failure"
     }
 ]
