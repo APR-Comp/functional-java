@@ -97,7 +97,7 @@
     },
   {
         "id": 5,
-        "subject": "apache-jackrabbit-oak,
+        "subject": "apache-jackrabbit-oak",
         "bug_id": "bug-1",
         "source_directory": "oak-commons/src/main/java",
         "class_directory": "oak-commons/target/classes",
