@@ -1,0 +1,66 @@
+--- a/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsonObject.java
++++ b/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsonObject.java
+@@ -146,15 +146,19 @@ public class JsonObject {
+     }
+
+     private static void toJson(JsopBuilder buf, JsonObject obj) {
+-        buf.object();
+-        for (String name : obj.props.keySet()) {
+-            buf.key(name).encodedValue(obj.props.get(name));
++        if(obj == null){
++            buf.value(null);
++        } else {
++            buf.object();
++            for (String name : obj.props.keySet()) {
++                buf.key(name).encodedValue(obj.props.get(name));
++            }
++            for (String name : obj.children.keySet()) {
++                buf.key(name);
++                toJson(buf, obj.children.get(name));
++            }
++            buf.endObject();
+         }
+-        for (String name : obj.children.keySet()) {
+-            buf.key(name);
+-            toJson(buf, obj.children.get(name));
+-        }
+-        buf.endObject();
+     }
+
+ }
+\ No newline at end of file
+diff --git a/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java b/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
+index 64241a6408..9268332560 100644
+--- a/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
++++ b/oak-commons/src/main/java/org/apache/jackrabbit/oak/commons/json/JsopBuilder.java
+@@ -16,6 +16,8 @@
+  */
+ package org.apache.jackrabbit.oak.commons.json;
+
++import org.jetbrains.annotations.Nullable;
++
+ /**
+  * A builder for Json and Jsop strings. It encodes string values, and knows when
+  * a comma is needed. A comma is appended before '{', '[', a value, or a key;
+@@ -208,12 +210,20 @@ public class JsopBuilder implements JsopWriter {
+      */
+     @Override
+     public JsopBuilder encodedValue(String value) {
+-        optionalCommaAndNewline(value.length());
++        optionalCommaAndNewline(strLength(value));
+         buff.append(value);
+         needComma = true;
+         return this;
+     }
+
++    private int strLength(@Nullable String value) {
++        if (value != null) {
++            return value.length();
++        } else {
++            return 4;// null = 4 chars
++        }
++    }
++
+     private void optionalCommaAndNewline(int add) {
+         if (needComma) {
+             buff.append(',');
