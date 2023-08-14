@@ -1,0 +1,11 @@
+--- a/src/main/java/io/lettuce/core/RedisURI.java
++++ b/src/main/java/io/lettuce/core/RedisURI.java
+@@ -1461,7 +1461,7 @@ public class RedisURI implements Serializable, ConnectionPoint {
+             LettuceAssert.notNull(source, "Source RedisURI must not be null");
+
+             withSsl(source.isSsl());
+-            withVerifyPeer(source.isVerifyPeer());
++            withVerifyPeer(source.getVerifyMode());
+             withStartTls(source.isStartTls());
+
+             return this;
