@@ -34,7 +34,7 @@
         "java_version": 11,
         "build_system": "maven",
         "dependencies": [
-            "src/target/all-dependencies.jar"
+            "src/commons-math-legacy-core/target/all-dependencies.jar"
         ],
         "failing_test": [
             "org.apache.commons.math4.legacy.core.MathArraysTest"
@@ -82,7 +82,7 @@
         "java_version": 11,
         "build_system": "maven",
         "dependencies": [
-            "src/target/all-dependencies.jar"
+            "src/dubbo-common/target/all-dependencies.jar"
         ],
         "failing_test": [
             "org.apache.dubbo.common.utils.PojoUtilsTest"
@@ -106,7 +106,7 @@
         "java_version": 11,
         "build_system": "maven",
         "dependencies": [
-            "src/target/all-dependencies.jar"
+            "src/oak-commons/target/all-dependencies.jar"
         ],
         "failing_test": [
             "org.apache.jackrabbit.oak.commons.json.JsonObjectTest"

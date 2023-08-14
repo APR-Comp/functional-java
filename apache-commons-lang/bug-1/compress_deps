@@ -5,7 +5,7 @@ project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
 bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
 dir_name=/experiment/$benchmark_name/$project_name/$bug_id
 
-TARGET_PATH=$dir_name/src/target
+TARGET_PATH=$1
 DEPENDENCY_PATH=$TARGET_PATH/dependency
 EXTRACTED_DEPENDENCIES_PATH=$TARGET_PATH/extracted_dependencies
 
