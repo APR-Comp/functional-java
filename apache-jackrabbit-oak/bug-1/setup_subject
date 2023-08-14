@@ -10,7 +10,7 @@ cd $dir_name
 
 
 project_url="https://github.com/apache/jackrabbit-oak.git"
-bug_commit_id=d67dbcf
+bug_commit_id=387ba07
 #git format-patch -1 $fix_commit_id
 
 cd $dir_name
