@@ -29,7 +29,7 @@ echo "Merge all dependencies into a single 'jar' file..." \
 
 
 count_compressed_classes=$(unzip -l $ALL_DEPS_JAR | grep \.class | wc -l)
-if [[ $count_compressed_classes -eq 0 ]]
+if [[ $count_compressed_classes -ne 0 ]]
 then
   echo "SUCCESS"
   exit 0

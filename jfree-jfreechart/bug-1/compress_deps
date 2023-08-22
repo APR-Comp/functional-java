@@ -10,7 +10,7 @@ DEPENDENCY_PATH=$TARGET_PATH/dependency
 EXTRACTED_DEPENDENCIES_PATH=$TARGET_PATH/extracted_dependencies
 ALL_DEPS_JAR=$TARGET_PATH/all-dependencies.jar
 
-cd $TARGET_PATH/..;
+cd $dir_name/src
 mvn dependency:copy-dependencies
 
 
@@ -29,7 +29,7 @@ echo "Merge all dependencies into a single 'jar' file..." \
 
 
 count_compressed_classes=$(unzip -l $ALL_DEPS_JAR | grep \.class | wc -l)
-if [[ $count_compressed_classes -eq 0 ]]
+if [[ $count_compressed_classes -ne 0 ]]
 then
   echo "SUCCESS"
   exit 0
