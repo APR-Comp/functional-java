@@ -8,9 +8,10 @@ dir_name=/experiment/$benchmark_name/$project_name/$bug_id
 TARGET_PATH=$1
 DEPENDENCY_PATH=$TARGET_PATH/dependency
 EXTRACTED_DEPENDENCIES_PATH=$TARGET_PATH/extracted_dependencies
+ALL_DEPS_JAR=$TARGET_PATH/all-dependencies.jar
 
-cd $TARGET_PATH/..;
-mvn dependency:copy-dependencies
+cd $dir_name/src;
+mvn -pl commons-math-legacy-core dependency:copy-dependencies
 
 
 rm -rf "$EXTRACTED_DEPENDENCIES_PATH" \
@@ -24,4 +25,16 @@ echo "Delete *.RSA *.DSA *.SF signature files..." \
 
 echo "Merge all dependencies into a single 'jar' file..." \
   && jar -cf "$TARGET_PATH"/all-dependencies.jar . \
-    && echo "JAR File with all dependencies successfully created: $TARGET_PATH/all-dependencies.jar"
+        && echo "JAR File with all dependencies successfully created: $ALL_DEPS_JAR"
+
+
+count_compressed_classes=$(unzip -l $ALL_DEPS_JAR | grep \.class | wc -l)
+if [[ $count_compressed_classes -eq 0 ]]
+then
+  echo "SUCCESS"
+  exit 0
+else
+  echo "FAIL"
+  exit 1
+fi;
+
