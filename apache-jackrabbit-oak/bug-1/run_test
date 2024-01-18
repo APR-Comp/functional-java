@@ -5,8 +5,15 @@ project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
 bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
 dir_name=/experiment/$benchmark_name/$project_name/$bug_id
 TEST_CLASS=$1
+TEST_TIMEOUT=$2
 EXIT_CODE=1
+
 cd $dir_name/src
+
+if [ -z "$TEST_TIMEOUT" ];
+then
+  TEST_TIMEOUT=120
+fi
 
 if [ -z "$TEST_CLASS" ];
 then
@@ -15,7 +22,7 @@ then
 fi
 
 
-timeout 10 mvn test -Drat.skip=true -pl oak-commons -Dtest=$TEST_CLASS > /dev/null 2>&1
+timeout $TEST_TIMEOUT mvn test -pl oak-commons -Drat.skip=true -Dtest=$TEST_CLASS
 EXIT_CODE=$?
 
 if [[ EXIT_CODE -eq 0 ]]
@@ -26,4 +33,3 @@ else
 fi;
 
 exit $EXIT_CODE
-

@@ -1,0 +1,15 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+
+cd $dir_name/src
+line_num=$(grep -n -w -F "<plugins>" pom.xml  | cut -d : -f 1 | head -n1)
+line_num=$((line_num+1))
+sed -i "${line_num}i <plugin><groupId>com.diffplug.spotless</groupId><artifactId>spotless-maven-plugin</artifactId><version>2.9.0</version><configuration><java><includes><include>src/main/java/**/*.java</include></includes><googleJavaFormat><version>1.15.0</version><style>GOOGLE</style></googleJavaFormat></java></configuration></plugin>" pom.xml
+mvn spotless:check -pl modules/swagger-core
+mvn spotless:apply -pl modules/swagger-core
+
+

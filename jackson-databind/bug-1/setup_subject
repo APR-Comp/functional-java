@@ -1,0 +1,32 @@
+#!/bin/bash
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+benchmark_name=$(echo $script_dir | rev | cut -d "/" -f 3 | rev)
+project_name=$(echo $script_dir | rev | cut -d "/" -f 2 | rev)
+bug_id=$(echo $script_dir | rev | cut -d "/" -f 1 | rev)
+dir_name=/experiment/$benchmark_name/$project_name/$bug_id
+current_dir=$PWD
+mkdir -p $dir_name
+cd $dir_name
+
+
+project_url="https://github.com/FasterXML/jackson-databind"
+checkout_commit_id=$1
+
+cd $dir_name
+git clone $project_url src
+cd src
+git checkout $checkout_commit_id
+git format-patch -1 $checkout_commit_id
+mkdir $dir_name/dev-patch
+cp *.patch $dir_name/dev-patch/dev.patch
+filterdiff -x "*/src/test/java/**/*.java" $dir_name/dev-patch/dev.patch > $dir_name/dev-patch/fix.patch
+patch -R -f -p 1 < $dir_name/dev-patch/fix.patch
+
+cd $dir_name/src
+mvn clean install -DskipTests -Drat.skip=true
+
+
+
+
+
+
